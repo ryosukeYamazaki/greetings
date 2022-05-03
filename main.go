@@ -15,8 +15,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 		log.Println("i (sync):", i)
 		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			log.Println("i (async):", i)
-			wg.Done()
 		}()
 	}
 	log.Println("finish before wait")
