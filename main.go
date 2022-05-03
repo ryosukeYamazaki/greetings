@@ -9,13 +9,13 @@ import (
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	wg := &sync.WaitGroup{} // WaitGroupの値を作る
+	log.Println("path:", r.URL.Path)
 
 	for i := 0; i < 10; i++ {
-		log.Println("i:", i)
+		log.Println("i (sync):", i)
 		wg.Add(1)
 		go func() {
-			log.Println("i:", i)
-			log.Println("path:", r.URL.Path)
+			log.Println("i (async):", i)
 			wg.Done()
 		}()
 	}
