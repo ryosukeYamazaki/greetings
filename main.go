@@ -14,10 +14,10 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < 10; i++ {
 		log.Println("i (sync):", i)
 		wg.Add(1)
-		go func() {
+		go func(i int) {
 			defer wg.Done()
 			log.Println("i (async):", i)
-		}()
+		}(i)
 	}
 	log.Println("finish before wait")
 	fmt.Fprintf(w, "Hello astaxie!")
